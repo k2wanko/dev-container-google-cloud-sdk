@@ -1,27 +1,14 @@
 {
     "features": [
         {
-            "id": "helloworld",
-            "name": "My First Feature",
+            "id": "google-cloud-sdk",
+            "name": "Google Cloud SDK",
             "options": {
-                "greeting": {
+                "version": {
                     "type": "string",
-                    "proposals": [ "hey", "hello", "hi", "howdy" ],
-                    "default": "hey",
-                    "description": "Select a pre-made greeting, or enter your own"
-                }
-            },
-            "include": ["ubuntu"]
-        },
-        {
-            "id": "color",
-            "name": "A feature to remind you of your favorite color",
-            "options": {
-                "favorite": {
-                    "type": "string",
-                    "enum": [ "red", "gold", "green" ],
-                    "default": "red",
-                    "description": "Choose your favorite color."
+                    "proposals": [ "392.0.0" ],
+                    "default": "392.0.0",
+                    "description": "Select a google-cloud-sdk version"
                 }
             },
             "include": ["ubuntu"]
