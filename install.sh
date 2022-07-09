@@ -30,6 +30,13 @@ if [ ! -z ${_BUILD_ARG_GOOGLE_CLOUD_SDK} ]; then
 
     mkdir -p /usr/share
     mv ./google-cloud-sdk /usr/share/google-cloud-sdk
+
+    INSTALL_COMPONENTS=(${_BUILD_ARG_GOOGLE_CLOUD_SDK_INSTALL_COMPONENTS//,/ })
+    for component in "${INSTALL_COMPONENTS[@]}"; do
+        sudo /usr/share/google-cloud-sdk/bin/gcloud components install $component
+    done
+
+    # Setup execution commands
     for file in /usr/share/google-cloud-sdk/bin/*; do
         sudo ln -s $file /usr/local/bin/$(basename $file)
     done
