@@ -3,14 +3,7 @@
         {
             "id": "google-cloud-sdk",
             "name": "Google Cloud SDK",
-            "options": {
-                "version": {
-                    "type": "string",
-                    "proposals": [ "392.0.0" ],
-                    "default": "392.0.0",
-                    "description": "Select a google-cloud-sdk version"
-                }
-            },
+            "options": {},
             "include": ["ubuntu"]
         }
     ]

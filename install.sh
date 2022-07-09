@@ -10,15 +10,27 @@ set -a
 . ./devcontainer-features.env
 set +a
 
+latest="392.0.0"
+
+if [ `uname -m` = 'x86_64' ]; then echo -n "x86_64" > /tmp/arch; else echo -n "arm" > /tmp/arch; fi;
+ARCH=`cat /tmp/arch`
+
 if [ ! -z ${_BUILD_ARG_GOOGLE_CLOUD_SDK} ]; then
-    echo "Activating feature 'helloworld'"
+    echo "Activating feature 'gcloud'"
 
     # Build args are exposed to this entire feature set following the pattern:  _BUILD_ARG_<FEATURE ID>_<OPTION NAME>
-    GOOGLE_CLOUD_SDK_VERSION=${_BUILD_ARG_GOOGLE_CLOUD_SDK_VERSION:-undefined}
+    CLOUD_SDK_VERSION=${_BUILD_ARG_GOOGLE_CLOUD_SDK_VERSION:-${latest}}
+    if [ "$CLOUD_SDK_VERSION" = 'latest' ]; then CLOUD_SDK_VERSION=$latest; fi;
+    DOWNLOAD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-${ARCH}.tar.gz
 
-    echo "echo Hello gcloud $GOOGLE_CLOUD_SDK_VERSION" >> /usr/gcloud
+    echo "Donwload: $DOWNLOAD_URL"
+    curl -O $DOWNLOAD_URL
+    tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-${ARCH}.tar.gz
+    rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-${ARCH}.tar.gz
 
-    chmod +x /usr/gcloud
-    sudo cat '/usr/gcloud' > /usr/local/bin/gcloud
-    sudo chmod +x /usr/local/bin/gcloud
+    mkdir -p /usr/share
+    mv ./google-cloud-sdk /usr/share/google-cloud-sdk
+    for file in /usr/share/google-cloud-sdk/bin/*; do
+        sudo ln -s $file /usr/local/bin/$(basename $file)
+    done
 fi
