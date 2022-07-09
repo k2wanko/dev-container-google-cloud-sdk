@@ -16,9 +16,9 @@ if [ ! -z ${_BUILD_ARG_GOOGLE_CLOUD_SDK} ]; then
     # Build args are exposed to this entire feature set following the pattern:  _BUILD_ARG_<FEATURE ID>_<OPTION NAME>
     GOOGLE_CLOUD_SDK_VERSION=${_BUILD_ARG_GOOGLE_CLOUD_SDK_VERSION:-undefined}
 
-    env
+    echo "echo Hello gcloud $GOOGLE_CLOUD_SDK_VERSION" >> /usr/gcloud
 
-    # chmod +x /usr/hello.sh
-    # sudo cat '/usr/hello.sh' > /usr/local/bin/hello
-    # sudo chmod +x /usr/local/bin/hello
+    chmod +x /usr/gcloud
+    sudo cat '/usr/gcloud' > /usr/local/bin/gcloud
+    sudo chmod +x /usr/local/bin/gcloud
 fi
