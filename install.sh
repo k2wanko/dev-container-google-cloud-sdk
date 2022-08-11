@@ -38,6 +38,6 @@ if [ ! -z ${_BUILD_ARG_GOOGLE_CLOUD_SDK} ]; then
 
     # Setup execution commands
     for file in /usr/share/google-cloud-sdk/bin/*; do
-        sudo ln -s $file /usr/local/bin/$(basename $file)
+        sudo ln -f -n -s $file /usr/local/bin/$(basename $file)
     done
 fi
